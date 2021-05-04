@@ -72,7 +72,7 @@ public class S3SinkTask extends SinkTask {
                 log.warn("--------- recordFormat: "+ recordFormat);
                 log.warn("--------- config: "+config);
 
-		keyConverter = ofNullable(Configure.buildConverter(config, "key.converter", true, null));
+		keyConverter = ofNullable(Configure.buildConverter(config, "key.converter", true, AlreadyBytesConverter.class));
 		valueConverter = Configure.buildConverter(config, "value.converter", false, AlreadyBytesConverter.class);
 
                 log.warn("-------- keyConverter: "+keyConverter);

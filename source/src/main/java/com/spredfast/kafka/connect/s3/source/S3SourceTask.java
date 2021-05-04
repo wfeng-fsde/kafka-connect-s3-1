@@ -61,7 +61,7 @@ public class S3SourceTask extends SourceTask {
 		this.taskConfig = taskConfig;
 		format = Configure.createFormat(taskConfig);
 
-		keyConverter = Optional.ofNullable(Configure.buildConverter(taskConfig, "key.converter", true, null));
+		keyConverter = Optional.ofNullable(Configure.buildConverter(taskConfig, "key.converter", true, AlreadyBytesConverter.class));
 		valueConverter = Configure.buildConverter(taskConfig, "value.converter", false, AlreadyBytesConverter.class);
 
 		readFromStoredOffsets();
