@@ -9,6 +9,10 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.connect.errors.DataException;
 import com.spredfast.kafka.connect.s3.RecordReader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * Helper for reading raw length encoded records from a chunk file. Not thread safe.
  */
@@ -18,11 +22,14 @@ public class BytesRecordReader implements RecordReader {
 
 	private final boolean includesKeys;
 
+	private static final Logger log = LoggerFactory.getLogger(BytesRecordReader.class);
+
 	/**
 	 * @param includesKeys do the serialized records include keys? Or just values?
 	 */
 	public BytesRecordReader(boolean includesKeys) {
 		this.includesKeys = includesKeys;
+                log.warn("includesKeys: " + includesKeys);
 	}
 
 	/**
@@ -37,10 +44,12 @@ public class BytesRecordReader implements RecordReader {
 		if (includesKeys) {
 			// if at the end of the stream, return null
 			final Integer keySize = readLen(topic, partition, offset, data);
+                        log.info("keySize: " + keySize);
 			if (keySize == null) {
 				return null;
 			}
 			key = readBytes(keySize, data, topic, partition, offset);
+                        log.info("key from readBytes: " + key);
 			valSize = readValueLen(topic, partition, offset, data);
 		} else {
 			key = null;

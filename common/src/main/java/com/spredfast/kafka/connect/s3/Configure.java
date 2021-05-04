@@ -13,7 +13,11 @@ import org.apache.kafka.common.Configurable;
 import org.apache.kafka.connect.errors.ConnectException;
 import org.apache.kafka.connect.storage.Converter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public abstract class Configure {
+	private static final Logger log = LoggerFactory.getLogger(AlreadyBytesConverter.class);
 
 	private static final Class<? extends S3RecordFormat> DEFAULT_FORMAT = TrailingDelimiterFormat.class;
 
@@ -36,6 +40,7 @@ public abstract class Configure {
 	 */
 	public static Converter buildConverter(Map<String, ?> props, String classNameProp, boolean isKey, Class<? extends Converter> defaultConverterClass) {
 		String className = (String) props.get(classNameProp);
+                log.warn("*****----- className: " + className + "; defaultConverterClass: " + defaultConverterClass);
 
 		try {
 			Converter converter;

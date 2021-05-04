@@ -20,6 +20,7 @@ public class AlreadyBytesConverter implements Converter {
 	@Override
 	public void configure(Map<String, ?> configs, boolean isKey) {
                 isKey = isKey;
+                log.info("isKey: " + isKey);
 	}
 
 	@Override

@@ -62,15 +62,21 @@ public class S3SinkTask extends SinkTask {
 
 	@Override
 	public void start(Map<String, String> props) throws ConnectException {
+                log.warn("---------- props: " + props);
 		config = new HashMap<>(props);
 
 		configGet("compressed_block_size").map(Long::parseLong).ifPresent(chunkThreshold ->
 			this.GZIPChunkThreshold = chunkThreshold);
 
 		recordFormat = Configure.createFormat(props);
+                log.warn("--------- recordFormat: "+ recordFormat);
+                log.warn("--------- config: "+config);
 
 		keyConverter = ofNullable(Configure.buildConverter(config, "key.converter", true, null));
 		valueConverter = Configure.buildConverter(config, "value.converter", false, AlreadyBytesConverter.class);
+
+                log.warn("-------- keyConverter: "+keyConverter);
+                log.warn("-------- valueConverter: "+valueConverter);
 
 		String bucket = configGet("s3.bucket")
 			.filter(s -> !s.isEmpty())
