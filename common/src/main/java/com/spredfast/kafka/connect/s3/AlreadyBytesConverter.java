@@ -28,11 +28,13 @@ public class AlreadyBytesConverter implements Converter {
 		if (schema != null && schema != Schema.BYTES_SCHEMA && schema != Schema.OPTIONAL_BYTES_SCHEMA) {
 			throw new DataException(topic + " error: Not a byte array! " + value);
 		}
+                /*
                 if (isKey) {
                         log.warn("key: " + value);
                 } else {
                         log.warn("value: " + value);
                 }
+                */
 		if (value == null) {
 			return null;
 		}

@@ -29,7 +29,7 @@ public class BytesRecordReader implements RecordReader {
 	 */
 	public BytesRecordReader(boolean includesKeys) {
 		this.includesKeys = includesKeys;
-                log.warn("includesKeys: " + includesKeys);
+                //log.warn("includesKeys: " + includesKeys);
 	}
 
 	/**
@@ -44,12 +44,12 @@ public class BytesRecordReader implements RecordReader {
 		if (includesKeys) {
 			// if at the end of the stream, return null
 			final Integer keySize = readLen(topic, partition, offset, data);
-                        log.info("keySize: " + keySize);
+                        //log.info("keySize: " + keySize);
 			if (keySize == null) {
 				return null;
 			}
 			key = readBytes(keySize, data, topic, partition, offset);
-                        log.info("key from readBytes: " + key);
+                        //log.info("key from readBytes: " + key);
 			valSize = readValueLen(topic, partition, offset, data);
 		} else {
 			key = null;
